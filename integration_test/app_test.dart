@@ -52,49 +52,49 @@ void main() {
 
         }, tags: ['no-ci']);
 
-    // testWidgets(
-    //     'should display FailureWidget and retry when there is a failure',
-    //         (WidgetTester tester) async {
-    //       when(() => mockGameDealCubit.state).thenReturn(
-    //         const GameDealState(
-    //           status: GameDealStatus.failure,
-    //         ),
-    //       );
-    //
-    //       await tester.pumpWidget(homeWidget());
-    //       expect(find.text('Try Again'), findsOneWidget);
-    //       // Simulate a button tap
-    //       await tester.tap(find.text('Try Again'));
-    //       await tester.pump();
-    //       verify(() => mockGameDealCubit.getDeals()).called(1);
-    //     });
+    testWidgets(
+        'should display FailureWidget and retry when there is a failure',
+            (WidgetTester tester) async {
+          when(() => mockGameDealCubit.state).thenReturn(
+            const GameDealState(
+              status: GameDealStatus.failure,
+            ),
+          );
 
-    // testWidgets('should display NoDataFound when there are no deals', (
-    //     WidgetTester tester) async {
-    //   when(() => mockGameDealCubit.state).thenReturn(
-    //       const GameDealState(status: GameDealStatus.success, deals: []));
-    //
-    //   await tester.pumpWidget(homeWidget());
-    //   expect(find.text('No Data Found.'), findsOneWidget);
-    //   await tester.tap(find.text('Refresh'),);
-    //   await tester.pump();
-    //   verify(() => mockGameDealCubit.getDeals()).called(1);
-    // });
+          await tester.pumpWidget(homeWidget());
+          expect(find.text('Try Again'), findsOneWidget);
+          // Simulate a button tap
+          await tester.tap(find.text('Try Again'));
+          await tester.pump();
+          verify(() => mockGameDealCubit.getDeals()).called(1);
+        });
+
+    testWidgets('should display NoDataFound when there are no deals', (
+        WidgetTester tester) async {
+      when(() => mockGameDealCubit.state).thenReturn(
+          const GameDealState(status: GameDealStatus.success, deals: []));
+
+      await tester.pumpWidget(homeWidget());
+      expect(find.text('No Data Found.'), findsOneWidget);
+      await tester.tap(find.text('Refresh'),);
+      await tester.pump();
+      verify(() => mockGameDealCubit.getDeals()).called(1);
+    });
 
 
-    // testWidgets('should display ListView when there are deals', (
-    //     WidgetTester tester) async {
-    //   when(() => mockGameDealCubit.state).thenReturn(
-    //     GameDealState(status: GameDealStatus.success, deals: [dealData],),);
-    //
-    //   await tester.pumpWidget(homeWidget());
-    //
-    //   expect(find.byType(ListView), findsOneWidget);
-    //   expect(find.text('Farming Simulator 22'), findsOneWidget);
-    //
-    //
-    // },
-    // );
+    testWidgets('should display ListView when there are deals', (
+        WidgetTester tester) async {
+      when(() => mockGameDealCubit.state).thenReturn(
+        GameDealState(status: GameDealStatus.success, deals: [dealData],),);
+
+      await tester.pumpWidget(homeWidget());
+
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.text('Farming Simulator 22'), findsOneWidget);
+
+
+    },
+    );
   });
 }
 
