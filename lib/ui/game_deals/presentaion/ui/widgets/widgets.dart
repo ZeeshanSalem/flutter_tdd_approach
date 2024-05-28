@@ -1,0 +1,1 @@
+export 'deal_tile.dart';
