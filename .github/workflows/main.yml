@@ -98,7 +98,7 @@ jobs:
             build/app/outputs/flutter-apk/app-x86_64-release.apk,
             build/ios/iphoneos/app.ipa
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
 
 #      - name: flutter build apk --release --split-per-abi
 #        run: |
