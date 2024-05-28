@@ -89,7 +89,6 @@ jobs:
           cd ..
           zip -r app.ipa Payload
 
-
       - name: Upload APK and iOS app to release
         uses: ncipollo/release-action@v1
         with:
