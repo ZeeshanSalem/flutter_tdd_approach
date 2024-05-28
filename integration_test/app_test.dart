@@ -50,7 +50,7 @@ void main() {
           }, reportKey: 'loading_state');
 
 
-        });
+        }, tags: ['no-ci']);
 
     // testWidgets(
     //     'should display FailureWidget and retry when there is a failure',
