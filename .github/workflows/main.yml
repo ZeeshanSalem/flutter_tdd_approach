@@ -74,7 +74,12 @@ jobs:
       - name: Run tests
         run: flutter test --exclude-tags='no-ci'
 
-      - name: flutter build apk --release --split-per-abi
+      - name: Build APK and iOS app
+        run: |
+          flutter build apk --release --split-per-abi
+          flutter build ios --no-codesign
+
+      - name: Package iOS app
         run: |
           flutter build ios --no-codesign
           cd build/ios/iphoneos
@@ -84,9 +89,31 @@ jobs:
           cd ..
           zip -r app.ipa Payload
 
-      - name: Push to Releases
+
+      - name: Upload APK and iOS app to release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: |
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk,
+            build/app/outputs/flutter-apk/app-x86_64-release.apk,
+            build/ios/iphoneos/app.ipa
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+#      - name: flutter build apk --release --split-per-abi
+#        run: |
+#          flutter build ios --no-codesign
+#          cd build/ios/iphoneos
+#          mkdir Payload
+#          cd Payload
+#          ln -s ../Runner.app
+#          cd ..
+#          zip -r app.ipa Payload
+
+#      - name: Push to Releases
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+#          tag: v1.0.${{ github.run_number }}
+#          token: ${{ secrets.TOKEN }}
