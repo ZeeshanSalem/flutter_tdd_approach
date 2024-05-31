@@ -12,7 +12,7 @@ import '../model/deal_data.dart';
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
-class MockDealRemoteDataSource extends Mock implements DealRemoteDataSource {}
+class MockDealRemoteDataSource extends Mock implements DealRemoteDataSourceImpl {}
 
 void main() {
   late MockNetworkInfo mockNetworkInfo;

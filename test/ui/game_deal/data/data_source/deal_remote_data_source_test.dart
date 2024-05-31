@@ -12,7 +12,7 @@ import '../../../../fixtures/reader.dart';
 class MockNetworkClient extends Mock implements NetworkClient {}
 
 void main() {
-  late DealRemoteDataSource dealRemoteDataSource;
+  late DealRemoteDataSourceImpl dealRemoteDataSource;
   late MockNetworkClient mockNetworkClient;
 
   setUpAll(() {
@@ -22,7 +22,7 @@ void main() {
 
   setUp(() {
     mockNetworkClient = MockNetworkClient();
-    dealRemoteDataSource = DealRemoteDataSource(
+    dealRemoteDataSource = DealRemoteDataSourceImpl(
       networkClient: mockNetworkClient,
     );
   });
@@ -41,6 +41,7 @@ void main() {
         data: responsePayload,
       );
 
+      // Stub
       when(() => mockNetworkClient.invoke(
             any(),
             any(),
@@ -51,19 +52,22 @@ void main() {
       // Act
       final result = await dealRemoteDataSource.getDeals();
 
+      // Assert
       expect(result, responsePayload);
 
+      // Verify
       verify(() => mockNetworkClient.invoke(kGameDeals, RequestType.get))
           .called(1);
     });
 
-    test('should thrown ServerException when response status code is not 200 ',
+    test('Should thrown ServerException when response status code is not 200.',
         () async {
       final response = Response(
         requestOptions: RequestOptions(),
         statusCode: 500,
       );
 
+      // Stub
       when(() => mockNetworkClient.invoke(any(), any()))
           .thenAnswer((_) async => response);
 
