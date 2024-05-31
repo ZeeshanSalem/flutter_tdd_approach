@@ -3,16 +3,20 @@ import 'package:games/core/error/exception.dart';
 import 'package:games/core/network/network_client.dart';
 import 'package:games/core/network/network_constants.dart';
 
-class DealRemoteDataSource {
+abstract class DealRemoteDataSource {
+  Future<dynamic> getDeals();
+}
+
+class DealRemoteDataSourceImpl extends DealRemoteDataSource {
   final NetworkClient networkClient;
 
-  DealRemoteDataSource({
+  DealRemoteDataSourceImpl({
     required this.networkClient,
   });
 
   Future<dynamic> getDeals() async {
     var response = await networkClient.invoke(kGameDeals, RequestType.get);
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    if (response.statusCode == 200 ) {
       return response.data;
     } else {
       throw ServerException(
